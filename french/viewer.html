@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" style="height: calc(100% - 156px);">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dématérialisation</title>
+
+    <!-- CSS -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/plugin.css">
+
+    <!-- CSS -->
+
+    <script src="https://unpkg.com/popper.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://guillotine.js.org/js/jquery.guillotine.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="http://guillotine.js.org/js/jquery.guillotine.min.js"></script>
+
+    <style>
+        .page_body {
+            padding-left: 0;
+        }
+
+        .collapse_slider {
+            width: 0 !important;
+        }
+
+        .left_slider.collapse_slider .fa-chevron-left {
+            display: none;
+        }
+
+        .left_slider:not(.collapse_slider) .fa-chevron-right {
+            display: none;
+        }
+
+
+
+        .left_slider {
+            height: 100%;
+            width: 210px;
+            background: #fff;
+            box-shadow: 0 3px 6px 0 #00000029;
+            border-radius: 0 0 9px 0;
+            position: relative;
+            transition: all 0.2s;
+            /* padding: 30px 25px; */
+        }
+
+        .slider_box {
+            height: 100%;
+            max-height: 100%;
+            overflow-y: auto;
+            padding: 30px 25px;
+            width: 210px;
+        }
+
+        .invoice_image {
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .invoice_card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: 0;
+            margin-bottom: 8px;
+        }
+
+        .invoice_card_active {
+            border: 2px solid #20c997;
+
+        }
+
+        .toggle_icon {
+            border-radius: 0 9px 8px 0;
+            height: 70px;
+            background: #fff;
+            width: 30px;
+            position: absolute;
+            right: -30px;
+            box-shadow: 7px 3px 8px 0 #0000000f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a09d9d;
+            cursor: pointer;
+            top: 0;
+        }
+
+        .collapsable:before {
+            font-family: 'FontAwesome';
+            /* content: "\f095"; */
+            display: inline-block;
+            padding-right: 3px;
+            vertical-align: middle;
+            font-weight: 100;
+            content: "\f078";
+            transition: all 0.5s;
+            margin-top: -5px;
+            color: #aca9a9;
+            font-size: 12px;
+            margin-right: 6px;
+        }
+
+        .collapsed:before {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            transform: rotate(-90deg);
+        }
+
+        .no_padding {
+            padding: 0 !important;
+        }
+
+        .p_16 {
+            padding: 18px;
+        }
+
+        .border_b {
+            border-bottom: 0.5px solid #d2d2da;
+        }
+
+        .form strong {
+            color: #5f5f5f;
+        }
+
+        .bg-grey {
+            background-color: #f9f9f9;
+            color: #262626;
+        }
+
+        .fields_view .page_body {
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+        }
+
+        .doc_image {
+            width: 100%;
+            box-shadow: 0 3px 6px 0 #00000029;
+        }
+
+        .doc_view {
+            flex: 0 0 50%;
+            margin-top: 25px;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .fields_view {
+            flex: 0 0 50%;
+            padding: 0 10px;
+        }
+
+        .page_body {
+            display: flex;
+            padding-right: 0;
+        }
+
+        #controls {
+            position: absolute;
+            /* top: 0; */
+            top: -25px;
+            /* right: 50%; */
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+            background-color: #ffffff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            margin: auto;
+            position: absolute;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .page_input {
+            width: 25px;
+            margin-right: 5px;
+            border: 1px solid #cacccf;
+            border-radius: 5px;
+            outline-color: #00ae8d;
+            text-align: center;
+        }
+
+        .pages_count {
+            margin-right: 7px;
+        }
+
+        .viewer_container {
+            width: 100%;
+            height: 100%;
+            margin-left: 50px;
+            margin-right: 10px;
+            display: flex;
+            overflow: auto;
+            padding-left: 10px;
+        }
+
+        #controls a {
+            color: #b5b5c3;
+            width: 27px;
+            height: 27px;
+            background: #f4f6f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 9px;
+            border-radius: 5px;
+        }
+
+        /* width */
+        .slider_box::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        .slider_box::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        .slider_box::-webkit-scrollbar-thumb {
+            background: rgb(182, 182, 182);
+        }
+
+        /* Handle on hover */
+        .slider_box::-webkit-scrollbar-thumb:hover {
+            background: rgb(153, 153, 153);
+        }
+
+        .form-control {
+            font-size: 0.9rem;
+        }
+
+        .tbl_desc thead th:nth-of-type(1) {
+            width: 50%;
+        }
+
+        .tbl_desc thead th:not(:first-child) {
+            text-align: center;
+        }
+
+        .tbl_desc tbody tr {
+            margin-bottom: 10px;
+        }
+
+        .tbl_desc tbody tr td {
+            padding: 6px 13px;
+        }
+
+        .tbl_desc thead th {
+            color: rgb(166 166 166);
+            padding: 0 13px;
+            font-weight: 300;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page_container">
+
+        <!-- CONTENT -->
+        <div class="page_content">
+
+            <!-- TOOLBAR -->
+            <div class="toolbar_container v2">
+
+                <div class="breadcrumb_text">
+                    <a href="index.html">
+                        <i class="fa fa-arrow-left mr-2 pointer" style="font-size: 18px;"></i>
+                    </a>
+                    Documents a ajouté
+                </div>
+                <div class="toolbar_right">
+                    <div class="profile_details">
+                        <div class="profile_name">Sebastien Akl</div>
+                        <div class="profile_status">Comptable</div>
+                    </div>
+                    <span class="profile_badge">
+                        <span class="badge_char">S</span>
+                    </span>
+                </div>
+            </div>
+            <!-- / TOOLBAR -->
+
+            <div class="page_body" style="height:100%;">
+
+                <div class="left_slider">
+                    <div class="slider_box">
+
+                        <div>
+
+                            <div>
+                                <p class="">
+                                    <a class="collapsable collapsed" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Facture 1.pdf
+                                    </a>
+                                </p>
+                                <div class="collapse panel-collapse" id="collapseExample">
+                                    <div class="invoice_card invoice_card_active">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                    <div class="invoice_card ">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="">
+                                    <a class="collapsable collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Facture 2.pdf
+                                    </a>
+                                </p>
+                                <div class="collapse panel-collapse" id="collapseExample1">
+                                    <div class="invoice_card invoice_card_active">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                    <div class="invoice_card ">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="">
+                                    <a class="collapsable collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Lettre.dox
+                                    </a>
+                                </p>
+                                <div class="collapse panel-collapse" id="collapseExample1">
+                                    <div class="invoice_card invoice_card_active">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                    <div class="invoice_card ">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="">
+                                    <a class="collapsable collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Facture 3.pdf
+                                    </a>
+                                </p>
+                                <div class="collapse panel-collapse" id="collapseExample1">
+                                    <div class="invoice_card invoice_card_active">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                    <div class="invoice_card ">
+                                        <img class="invoice_image" src="assets/invoices/excel-ss.png">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="toggle_icon">
+                            <i class="fa fa-chevron-left"></i>
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div class="slider_toggle">
+
+                    </div>
+                </div>
+                <div class="viewer_container">
+                    <div class="doc_view">
+                        <div id="theparent" style="width: 100%;">
+                            <img class="doc_image" id="thepicture" src="assets/invoices/excel-ss.png">
+                        </div>
+                        <div id='controls' class='hidden'>
+                            <a href='javascript:void(0)' id='left' title='Rotate left'><i class='fa fa-chevron-left'></i></a>
+                            <input class="page_input" value="1">
+                            <span class="pages_count">/3</span>
+                            <a href='javascript:void(0)' id='right' class="mr-4" title='Rotate left'><i class='fa fa-chevron-right'></i></a>
+                            <a href='javascript:void(0)' id='rotate_left' title='Rotate left'><i class='fa fa-rotate-left'></i></a>
+                            <a href='javascript:void(0)' id='zoom_out' title='Zoom out'><i class='fa fa-search-minus'></i></a>
+                            <a href='javascript:void(0)' id='fit' title='Fit image'><i class='fa fa-arrows-alt'></i></a>
+                            <a href='javascript:void(0)' id='zoom_in' title='Zoom in'><i class='fa fa-search-plus'></i></a>
+                            <a href='javascript:void(0)' id='rotate_right' title='Rotate right'><i class='fa fa-rotate-right'></i></a>
+                        </div>
+                    </div>
+                    <div class="fields_view">
+
+                        <div class="panel form">
+                            <div class="panel_body no_padding">
+
+                                <!-- ROW ! -->
+                                <div class="p_16 border_b">
+                                    <strong>Facture</strong>
+                                </div>
+
+                                <!-- ROW 2 -->
+                                <div class="p_16 bg-grey border_b">
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <strong>Document</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input class="form-control" placeholder="Nom du document">
+                                        </div>
+                                        <div class="col-4">
+                                            <select class="form-control">
+                                                <option>Type du document</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <input class="form-control" placeholder="Emplacement du document" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ROW 3 -->
+                                <div class="p_16 border_b">
+                                    <div class="mb-3">
+                                        <strong>Fournisseur</strong>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Nom de l’entreprise">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Site internet">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="Téléphone">
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" placeholder="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input class="form-control" placeholder="Addresse">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ROW 4 -->
+                                <div class="p_16 bg-grey border_b">
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <strong>Information</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input class="form-control" placeholder="Date">
+                                        </div>
+                                        <div class="col-4">
+                                            <input class="form-control" placeholder="Nu. de facture">
+                                        </div>
+                                        <div class="col-4">
+                                            <input class="form-control" placeholder="Date d’échéance">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ROW 5 -->
+                                <div class="p_16 border_b">
+                                    <div class="mb-3">
+                                        <strong>Description</strong>
+                                    </div>
+                                    <div>
+                                        <table class="tbl_desc">
+                                            <thead>
+                                                <th>Nom du produit</th>
+                                                <th>Quantité</th>
+                                                <th>Prix d’une unité</th>
+                                                <th>Prix</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- / CONTENT -->
+            <footer class="footer_control f_j_right">
+                <div class="flex f_a_center">
+                    <button type="button" class="btn btn-outline-success btn_border_secondary mr-2">Jeter</button>
+                    <button type="button" class="btn btn-outline-success btn_border_secondary mr-2">Enregistrer</button>
+                    <button type="button" class="btn btn-outline-success btn_border_secondary mr-2">Valider</button>
+                    <button type="button" class="btn btn_ever" onclick="save()">Publier</button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var picture = $('#thepicture');  // Must be already loaded or cached!
+            picture.guillotine({ width: 400, height: 300 });
+
+            picture.guillotine('fit');
+
+
+            $('#zoom_in').click(function () {
+                picture.guillotine('zoomIn');
+            });
+
+            $('#zoom_out').click(function () {
+                picture.guillotine('zoomOut');
+            });
+
+            $('#rotate_left').click(function () {
+                picture.guillotine('rotateLeft');
+            });
+
+            $('#rotate_right').click(function () {
+                picture.guillotine('rotateRight');
+            });
+
+            $('#fit').click(function () {
+                picture.guillotine('fit');
+            });
+
+            $('.toggle_icon').click(function () {
+                $('.left_slider').toggleClass('collapse_slider')
+                $('.slider_box').toggleClass('no_padding')
+            })
+
+            $('.panel-collapse').on('show.collapse', function () {
+                $(this).siblings('.panel-heading').addClass('active');
+            });
+
+            $('.panel-collapse').on('hide.collapse', function () {
+                $(this).siblings('.panel-heading').removeClass('active');
+            });
+        })
+    </script>
+</body>
+
+</html>

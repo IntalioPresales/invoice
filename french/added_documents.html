@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" style="height: calc(100% - 66px);" ng-app="app">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dématérialisation</title>
+
+    <!-- CSS -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- CSS -->
+
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="assets/js/files.repository.js"></script>
+    <script src="assets/js/upload.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+    <style>
+        .swal2-show {
+            min-height: 250px;
+        }
+
+        .page_body {
+            height: calc(100% - 90px);
+        }
+    </style>
+
+</head>
+
+<body ng-controller="ctrl">
+
+    <div class="page_container">
+
+        <!-- CONTENT -->
+        <div class="page_content">
+
+            <!-- TOOLBAR -->
+            <div class="toolbar_container v2">
+
+                <div class="breadcrumb_text">
+                    <a href="index.html">
+                        <i class="fa fa-arrow-left mr-2 pointer" style="font-size: 18px;"></i>
+                    </a>
+                    Documents a ajouté
+                </div>
+                <div class="toolbar_right">
+                    <div class="profile_details">
+                        <div class="profile_name">Sebastien Akl</div>
+                        <div class="profile_status">Comptable</div>
+                    </div>
+                    <span class="profile_badge">
+                        <span class="badge_char">S</span>
+                    </span>
+                </div>
+            </div>
+            <!-- / TOOLBAR -->
+
+            <div class="page_body">
+
+                <!-- ROW 1 -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="panel panel-flat">
+                            <div class="panel_heading">
+                                <h5>Documents</h5>
+                            </div>
+                            <div class="panel_body">
+                                <div class="flex flex-column mb-4">
+
+                                    <!-- DOCUMENT ROW -->
+                                    <div class="document_row flex f_j_spacebetween f_a_center" ng-repeat="file in files">
+                                        <!-- LEFT -->
+                                        <div class="flex f_a_center">
+                                            <img src="assets/images/word.png" style="height: 45px;" class="mr-4">
+                                            <div class="flex flex-column document_details">
+                                                <div class="document_name">{{file.filename || 'Facture.png'}}</div>
+                                                <div class="document_status">1Nb. de pages: {{file.pages || 1}}</div>
+                                            </div>
+                                        </div>
+                                        <!-- LEFT -->
+
+                                        <!-- RIGHT -->
+                                        <div class="badge_square bg-grey-100 pointer" data-toggle="modal" data-target="#delete_modal" ng-click="selectFile(file.id)">
+                                            <i class="fa fa-trash text-secondary" style="font-size:18px;"></i>
+                                        </div>
+                                        <!-- RIGHT -->
+                                    </div>
+                                    <!-- DOCUMENT ROW -->
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="drop flex f_a_center f_j_center pt-5 pb-5 upload-area" id="uploadfile">
+                                            <div class="flex f_a_center f_j_center ">
+                                                <div class="mr-3 drop_message">Glisser et déposer</div>
+                                                <div>
+                                                    <select class="form-control w_200 select" placeholder="Télécharger">
+                                                        <option>Télécharger</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 2 -->
+
+
+            </div>
+            <!-- / CONTENT -->
+
+            <footer class="footer_control f_j_right">
+                <div class="flex f_a_center">
+                    <button type="button" class="btn btn-outline-success btn_border_secondary mr-2">Jeter</button>
+                    <button type="button" class="btn btn_ever" onclick="save()">Classifier</button>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <input type="file" name="file" id="file" style="display: none;">
+
+
+    <!-- BOXED RIGHT -->
+    <div id="delete_modal" class="modal fade" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header header_bg_default">
+                    <h6 class="modal-title">Supprimer le document</h6>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        Etes vous sure que vous voulez supprimer le document?
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn_border_secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn_ever" ng-click="delete()">Suprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOXED RIGHT -->
+
+    <script>
+        function save() {
+            Swal.fire({
+                title: '',
+                html:
+                    `<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                        <br>
+                        <br>
+                        Votre documents sont entrain d’être classer`,
+                showCloseButton: false,
+                showCancelButton: false,
+                focusConfirm: false,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                timer: 3500
+                // confirmButtonText:
+                //     '<i class="fa fa-thumbs-up"></i> Great!',
+                // confirmButtonAriaLabel: 'Thumbs up, great!',
+                // cancelButtonText:
+                //     '<i class="fa fa-thumbs-down"></i>',
+                // cancelButtonAriaLabel: 'Thumbs down'
+            }).then(function () {
+                console.log("asd")
+                window.location.href = 'documents.html'
+            })
+        }
+
+        var app = angular.module("app", []);
+        app.controller("ctrl", function ($scope) {
+
+            $scope.selectedFile = null;
+            $scope.files = []
+
+            $scope.selectFile = function (id) {
+                $scope.selectedFile = id;
+            }
+
+            $scope.delete = function () {
+                deleteFile($scope.selectedFile);
+                $scope.loadFiles();
+                $("#delete_modal").modal('hide');
+            }
+
+            $scope.loadFiles = function () {
+                $scope.files = getFiles()
+            }
+
+            // $scope.files = getFiles()
+            $scope.loadFiles()
+
+            console.log($scope.files);
+
+            var dropedFile;
+
+            function uuid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // preventing page from redirecting
+            $("html").on("dragover", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(".drop_message").text("Déposer ici");
+            });
+
+            $("html").on("drop", function (e) { e.preventDefault(); e.stopPropagation(); });
+
+            // Drag enter
+            $('.upload-area').on('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(".drop_message").text("Laissez tomber");
+                // $("h1").text("Drop");
+            });
+
+            // Drag over
+            $('.upload-area').on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(".drop_message").text("Déposer ici");
+            });
+
+
+            // Drop
+            $('.upload-area').on('drop', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(".drop_message").text("Téléchargement...");
+                $(".select").fadeOut()
+
+                // $("h1").text("Upload");
+
+                var file = e.originalEvent.dataTransfer.files;
+                console.log(file);
+                dropedFile = file;
+                var fd = new FormData();
+
+                fd.append('file', file[0]);
+
+                uploadData(fd);
+            });
+
+            // Open file selector on div click
+            $("#uploadfile").click(function () {
+                $("#file").click();
+            });
+
+            // Open file selector on div click
+            $(".select").click(function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            // file selected
+            $("#file").change(function () {
+                var fd = new FormData();
+
+                var files = $('#file')[0].files[0];
+
+                fd.append('file', files);
+
+                uploadData(fd);
+            });
+
+
+            function uploadData(formdata) {
+
+                $.ajax({
+                    url: 'http://localhost/upload/upload.php',
+                    type: 'post',
+                    data: formdata,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function (response) {
+
+                        setTimeout(() => {
+
+                            let result = {
+                                id: uuid(),
+                                filename: dropedFile[0].name,
+                                pages: 1,
+                                date: new Date().toLocaleString(),
+                                status: 'Attend validation',
+                                invoice: [
+                                    {
+                                        "amount": 4.11,
+                                        "amount_untaxed": 4.11,
+                                        "currency": "USD",
+                                        "date": "Sun, 03 Aug 2014 00:00:00 GMT",
+                                        "desc": "Invoice from Amazon Web Services",
+                                        "invoice_number": "42183017",
+                                        "issuer": "Amazon Web Services",
+                                        "partner_name": "Amazon Web Services, Inc.",
+                                        "partner_website": "aws.amazon.com"
+                                    }
+                                ],
+                                images: [
+                                    "assets/invoices/excel-ss.png"
+                                ]
+                            };
+
+                            addFile(result)
+                            $scope.loadFiles()
+                            $(".drop_message").text("Glisser et déposer");
+                            $(".select").fadeIn()
+
+                            $scope.$apply();
+                        }, 2000);
+
+                        // addThumbnail(response);
+                    }
+                });
+
+            }
+
+
+
+        });
+    </script>
+</body>
+
+</html>

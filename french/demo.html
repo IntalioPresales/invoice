@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dématérialisation</title>
+
+    <!-- CSS -->
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- CSS -->
+
+    <script src="https://unpkg.com/popper.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="page_container">
+
+        <!-- SIDEBAR -->
+        <div class="menu_sidebar">
+
+            <div class="logo_container">
+                <img class="logo" src="assets/images/logo_white.png">
+            </div>
+
+            <div class="menu">
+                <div class="menu_item">
+                    <a href="javascript:void(0)">Dématérialisation</a>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / SIDEBAR -->
+
+        <!-- CONTENT -->
+        <div class="page_content">
+
+            <!-- TOOLBAR -->
+            <div class="toolbar_container">
+                <div class="breadcrumb_text">
+                    Tableau de bord
+                </div>
+                <div class="toolbar_right">
+                    <div class="flex f_a_center">
+                        <img src="assets/images/search_icon.png" class="search_icon" alt="">
+                    </div>
+                    <div class="profile_details">
+                        <div class="profile_name">Sebastien Akl</div>
+                        <div class="profile_status">Comptable</div>
+                    </div>
+                    <span class="profile_badge">
+                        <span class="badge_char">S</span>
+                    </span>
+                </div>
+            </div>
+            <!-- / TOOLBAR -->
+
+            <div class="page_body">
+                <!--  ROW 1 -->
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <div class="panel pointer" onclick="navigateTo('documents.html')">
+                            <!-- <div class="panel_heading">
+                                <h5></h5>
+                            </div> -->
+                            <div class="panel_body">
+                                <div class="flex f_j_spacebetween">
+                                    <div class="flex flex_column">
+                                        <h2>0</h2>
+                                        <div>Documents ajouté récemment</div>
+                                    </div>
+                                    <div>
+                                        <div class="flex f_a_center f_j_center circle-2 bg-green-100">
+                                            <img src="assets/images/file_1.png">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="panel pointer" onclick="navigateTo('documents.html')">
+                            <!-- <div class="panel_heading">
+                                <h5></h5>
+                            </div> -->
+                            <div class="panel_body">
+                                <div class="flex f_j_spacebetween">
+                                    <div class="flex flex_column">
+                                        <h2>0</h2>
+                                        <div>Documents attends validation</div>
+                                    </div>
+                                    <div>
+                                        <div class="flex f_a_center f_j_center circle-2 bg-green-100">
+                                            <img src="assets/images/file_2.png">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="panel pointer" onclick="navigateTo('documents.html')">
+                            <!-- <div class="panel_heading">
+                                <h5></h5>
+                            </div> -->
+                            <div class="panel_body">
+                                <div class="flex f_j_spacebetween">
+                                    <div class="flex flex_column">
+                                        <h2>0</h2>
+                                        <div>Document attends publication</div>
+                                    </div>
+                                    <div>
+                                        <div class="flex f_a_center f_j_center circle-2 bg-green-100">
+                                            <i class="fa fa-folder-open" style="color: #ccc; font-size: 30px;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / ROW 1 -->
+
+                <!-- ROW 2 -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="panel panel-flat">
+                            <div class="panel_heading">
+                                <h5>Ajouter un document</h5>
+                            </div>
+                            <div class="panel_body">
+                                <div class="flex flex-column">
+                                    <div class="drop flex flex-column f_a_center f_j_center mb-3">
+                                        <img src="assets/images/drop_icon.png" style="height: 80px;">
+                                        <div class="drop_text mt-3 mb-3">Glisser et déposer</div>
+                                        <button class="btn btn_extended btn_ever weight_300"><a href="added_documents_demo.html">Télécharger</a></button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="boxed flex f_a_center pointer" data-toggle="modal" data-target="#boxed_left">
+                                                <img class="mr-3" src="assets/images/boxed_1.png" style="height: 30px;">
+                                                Numérisation à volume élevé
+                                            </div>
+                                        </div>
+                                        <div class="col-6 ">
+                                            <div class=" boxed flex f_a_center pointer" data-toggle="modal" data-target="#boxed_right">
+                                                <img class="mr-3" src="assets/images/boxed_2.png" style="height: 30px;">
+                                                Numérisation unique
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ROW 2 -->
+
+                <!-- ROW 3 -->
+                <div class="row flex">
+                    <div class="col-6">
+                        <div class="panel panel-flat">
+                            <div class="panel_heading">
+                                <h5>Vitesse de la tâche</h5>
+                            </div>
+                            <div class="panel_body">
+                                <img class="w_full" src="assets/images/chart_1.png">
+                                <div class="text-center" style="font-size: 14px;">Temps pour terminer</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="panel panel-flat h_full">
+                            <div class="panel_heading">
+                                <h5>Document ajouté</h5>
+                            </div>
+                            <div class="panel_body">
+                                <img class="w_full" src="assets/images/chart_2.png">
+                                <div class="flex ml-5">
+                                    <div class="flex f_a_center mr-4">
+                                        <span class="square_badge badge-success mr-2"></span>
+                                        <span class="weight_300">Document réussi</span>
+                                    </div>
+                                    <div class="flex f_a_center">
+                                        <span class="square_badge badge-danger mr-2"></span>
+                                        <span class="weight_300">Document échoué</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 3 -->
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+    </div>
+
+    <!-- BOXED left -->
+    <div id="boxed_left" class="modal fade" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header header_bg_default">
+                    <h6 class="modal-title">Numérisation a volume élevé </h6>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="flex f_a_center f_j_center p-2">
+                        <div class="w_300">
+                            <div class="form-group">
+                                <select class="form-control" placeholder="Format du document">
+                                    <option>Format du document</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" placeholder="Séparation">
+                                    <option>Séparation d’une page</option>
+                                    <option>Séparation de 2 pages</option>
+                                    <option>Séparateur</option>
+                                    <option>Personnalisé</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn_border_secondary" data-dismiss="modal">Annuler</button>
+                    <a href="added_documents.html"><button type="button" class="btn btn_ever">Balayer</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOXED LEFT -->
+
+    <!-- BOXED RIGHT -->
+    <div id="boxed_right" class="modal fade" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header header_bg_default">
+                    <h6 class="modal-title">Numérisation unique </h6>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="flex f_a_center f_j_center p-2">
+                        <div class="w_300">
+                            <div class="form-group">
+                                <select class="form-control" placeholder="Format du document">
+                                    <option>Format du document</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success btn_border_secondary" data-dismiss="modal">Annuler</button>
+                    <a href="added_documents.html" onclick="navigateTo('added_documents.html')"> <button type="button" class="btn btn_ever" data-dismiss="modal">Balayer</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BOXED RIGHT -->
+
+    <script>
+        function navigateTo(url){
+            window.location.href = url
+        }
+    </script>
+
+</body>
+
+</html>
